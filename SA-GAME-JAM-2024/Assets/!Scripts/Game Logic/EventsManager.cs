@@ -14,8 +14,9 @@ public class EventsManager : MonoBehaviour
         {
             Instance = this;
             eventDictionary = new Dictionary<string, UnityEventBase>();
+            DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (Instance != this)
         {
             Destroy(gameObject);
         }
