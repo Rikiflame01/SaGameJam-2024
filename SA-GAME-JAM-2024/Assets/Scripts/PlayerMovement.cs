@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // For loading scenes
+using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -14,6 +14,16 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     private Vector3[] evaluatedPoints;
+
+    private void OnEnable()
+    {
+        EventsManager.StartListening("ResetPlayer", TeleportToStart);
+    }
+
+    private void OnDisable()
+    {
+        EventsManager.StopListening("ResetPlayer", TeleportToStart);
+    }
 
     void Start()
     {
