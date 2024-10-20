@@ -18,6 +18,7 @@ public class EnableObjects : MonoBehaviour
 
     public void EnableGameObjects()
     {
+        Debug.Log("Enabling objects");
         foreach (GameObject obj in objectsToEnable)
         {
             obj.SetActive(true);

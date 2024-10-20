@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +8,7 @@ public class SoundManager : MonoBehaviour
     [Header("Audio Sources")]
     public AudioSource backgroundMusicSource;
     public AudioSource sfxSource;
+    public AudioSource loopingSfxSource;
 
     [Header("Volume Settings")]
     [Range(0f, 1f)] public float backgroundMusicVolume = 0.5f;
@@ -35,6 +35,10 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        sfxSource = gameObject.AddComponent<AudioSource>();
+        loopingSfxSource = gameObject.AddComponent<AudioSource>();
+        backgroundMusicSource = gameObject.AddComponent<AudioSource>();
+
         sfxDictionary = new Dictionary<string, AudioClip>();
         foreach (AudioClip clip in sfxClips)
         {
@@ -49,6 +53,7 @@ public class SoundManager : MonoBehaviour
     {
         backgroundMusicSource.volume = backgroundMusicVolume;
         sfxSource.volume = sfxVolume;
+        loopingSfxSource.volume = sfxVolume;
 
         PlayBackgroundMusic(backgroundMusicTracks[currentMusicIndex]);
     }
@@ -73,7 +78,6 @@ public class SoundManager : MonoBehaviour
         if (sfxDictionary.ContainsKey(sfxName))
         {
             AudioClip clip = sfxDictionary[sfxName];
-
             sfxSource.PlayOneShot(clip);
         }
         else
@@ -82,15 +86,26 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void SetBackgroundMusicVolume(float volume)
+    public void PlayLoopingSFX(string sfxName)
     {
-        backgroundMusicVolume = Mathf.Clamp(volume, 0f, 1f);
-        backgroundMusicSource.volume = backgroundMusicVolume;
+        if (sfxDictionary.ContainsKey(sfxName))
+        {
+            AudioClip clip = sfxDictionary[sfxName];
+            loopingSfxSource.clip = clip;
+            loopingSfxSource.loop = true;
+            loopingSfxSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning($"Looping sound effect '{sfxName}' not found!");
+        }
     }
 
-    public void SetSFXVolume(float volume)
+    public void StopAllLoopingEffects()
     {
-        sfxVolume = Mathf.Clamp(volume, 0f, 1f);
-        sfxSource.volume = sfxVolume;
+        if (loopingSfxSource.isPlaying)
+        {
+            loopingSfxSource.Stop();
+        }
     }
 }

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
@@ -11,12 +10,12 @@ public class PlayerMovement : MonoBehaviour
     public float maxDistanceFromSpline = 2f;
     public float distanceToReachEnd = 1f;
     public int splineResolution = 100;
-    public string sceneToLoad; 
 
     public bool endOfLevel = false;
 
     private Rigidbody rb;
     private Vector3[] evaluatedPoints;
+    private bool isPlayingSparkleSound = false;
 
     private void OnEnable()
     {
@@ -48,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer(movement);
 
         CheckPlayerDistanceFromSpline();
+
+        HandleSparkleSound();
     }
 
     void MovePlayer(Vector3 movement)
@@ -82,7 +83,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
         if (minDistance > maxDistanceFromSpline)
         {
             Debug.Log("Player moved too far from the path! Teleporting to start.");
@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Vector3.Distance(playerPosition, evaluatedPoints[splineResolution]) <= distanceToReachEnd)
         {
-            if (endOfLevel == true) { return;}
+            if (endOfLevel == true) { return; }
             Debug.Log("Player has reached the end of the spline!");
             endOfLevel = true;
             LoadNextScene();
@@ -100,7 +100,6 @@ public class PlayerMovement : MonoBehaviour
 
     void TeleportToStart()
     {
-        endOfLevel = false;
         Vector3 startPosition = splinePath.EvaluatePosition(0f);
         rb.position = startPosition;
         EventsManager.TriggerEvent("ResetButtons");
@@ -109,11 +108,34 @@ public class PlayerMovement : MonoBehaviour
     void LoadNextScene()
     {
         EventsManager.TriggerEvent("EnableLevelButtons");
+        Debug.Log("Loading next scene...");
         rb.constraints = RigidbodyConstraints.FreezeAll;
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == "Level 1")
         {
+            SoundManager.instance.StopAllLoopingEffects();
             SoundManager.instance.PlaySFX("mtlpp");
         }
     }
+
+    void HandleSparkleSound()
+    {
+        bool isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+
+        if (isMoving && !isPlayingSparkleSound && endOfLevel != true)
+        {
+            SoundManager.instance.loopingSfxSource.loop = true;
+            SoundManager.instance.PlayLoopingSFX("sparkle");
+            SoundManager.instance.loopingSfxSource.volume = 1.5f;
+            SoundManager.instance.loopingSfxSource.Play();
+            isPlayingSparkleSound = true;
+        }
+        else if (!isMoving && isPlayingSparkleSound)
+        {
+            SoundManager.instance.loopingSfxSource.Stop();
+            SoundManager.instance.loopingSfxSource.loop = false;
+            isPlayingSparkleSound = false;
+        }
+    }
+
 }
