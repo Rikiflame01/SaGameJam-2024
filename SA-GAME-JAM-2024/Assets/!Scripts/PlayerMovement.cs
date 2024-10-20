@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
@@ -11,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     public float distanceToReachEnd = 1f;
     public int splineResolution = 100;
     public string sceneToLoad; 
+
+    public bool endOfLevel = false;
 
     private Rigidbody rb;
     private Vector3[] evaluatedPoints;
@@ -88,13 +91,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (Vector3.Distance(playerPosition, evaluatedPoints[splineResolution]) <= distanceToReachEnd)
         {
+            if (endOfLevel == true) { return;}
             Debug.Log("Player has reached the end of the spline!");
+            endOfLevel = true;
             LoadNextScene();
         }
     }
 
     void TeleportToStart()
     {
+        endOfLevel = false;
         Vector3 startPosition = splinePath.EvaluatePosition(0f);
         rb.position = startPosition;
         EventsManager.TriggerEvent("ResetButtons");
@@ -102,13 +108,12 @@ public class PlayerMovement : MonoBehaviour
 
     void LoadNextScene()
     {
-        if (!string.IsNullOrEmpty(sceneToLoad))
+        EventsManager.TriggerEvent("EnableLevelButtons");
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Level 1")
         {
-            SceneManager.LoadScene(sceneToLoad);
-        }
-        else
-        {
-            Debug.LogError("Scene to load not set!");
+            SoundManager.instance.PlaySFX("mtlpp");
         }
     }
 }

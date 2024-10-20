@@ -14,10 +14,14 @@ public class SoundManager : MonoBehaviour
     [Range(0f, 1f)] public float backgroundMusicVolume = 0.5f;
     [Range(0f, 1f)] public float sfxVolume = 1f;
 
+    [Header("Background Music Tracks")]
+    public List<AudioClip> backgroundMusicTracks;
+
     [Header("Sound Effects")]
     public List<AudioClip> sfxClips;
 
     private Dictionary<string, AudioClip> sfxDictionary;
+    private int currentMusicIndex = 0;
 
     private void Awake()
     {
@@ -46,27 +50,31 @@ public class SoundManager : MonoBehaviour
         backgroundMusicSource.volume = backgroundMusicVolume;
         sfxSource.volume = sfxVolume;
 
-        PlayBackgroundMusic(backgroundMusicSource.clip);
+        PlayBackgroundMusic(backgroundMusicTracks[currentMusicIndex]);
     }
-
 
     public void PlayBackgroundMusic(AudioClip musicClip)
     {
+        if (musicClip == null)
+        {
+            Debug.LogWarning("No music clip provided.");
+            return;
+        }
+
         if (backgroundMusicSource.clip == musicClip) return;
+
         backgroundMusicSource.clip = musicClip;
         backgroundMusicSource.loop = true;
         backgroundMusicSource.Play();
     }
 
-    public void PlaySFX(string sfxName, float volume = -1f)
+    public void PlaySFX(string sfxName)
     {
         if (sfxDictionary.ContainsKey(sfxName))
         {
             AudioClip clip = sfxDictionary[sfxName];
 
-            float sfxPlayVolume = volume >= 0f ? Mathf.Clamp(volume, 0f, 1f) : sfxVolume;
-
-            sfxSource.PlayOneShot(clip, sfxPlayVolume);
+            sfxSource.PlayOneShot(clip);
         }
         else
         {
@@ -74,13 +82,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-
     public void SetBackgroundMusicVolume(float volume)
     {
         backgroundMusicVolume = Mathf.Clamp(volume, 0f, 1f);
         backgroundMusicSource.volume = backgroundMusicVolume;
     }
-
 
     public void SetSFXVolume(float volume)
     {

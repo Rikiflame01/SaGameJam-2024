@@ -7,9 +7,11 @@ public class TimerLoop : MonoBehaviour
     private float currentTime;
     public TextMeshProUGUI timerText;
     private bool timerActive = true;
+    PlayerMovement playerMovement;
 
     private void Start()
     {
+        playerMovement = FindObjectOfType<PlayerMovement>();
         EventsManager.StartListening("ResetButtons", ResetTimer);
         ResetTimer();
     }
@@ -22,7 +24,7 @@ public class TimerLoop : MonoBehaviour
 
     private void Update()
     {
-        if (timerActive)
+        if (timerActive && playerMovement.endOfLevel == false)
         {
             UpdateTimer();
         }
@@ -37,9 +39,12 @@ public class TimerLoop : MonoBehaviour
         }
         else
         {
-            EventsManager.TriggerEvent("ResetPlayer");
 
-            ResetTimer();
+            if (playerMovement.endOfLevel == false)
+            {
+                EventsManager.TriggerEvent("ResetPlayer");
+                ResetTimer();
+            }
         }
     }
 

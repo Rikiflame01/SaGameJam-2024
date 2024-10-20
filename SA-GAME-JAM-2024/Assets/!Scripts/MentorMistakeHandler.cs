@@ -11,8 +11,11 @@ public class MentorMistakeHandler : MonoBehaviour
     private Vector3 originalPosition;
     private bool isDamaged = false;
 
+    PlayerMovement playerMovement;
+
     void Start()
     {
+        playerMovement = FindObjectOfType<PlayerMovement>();
         EventsManager.StartListening("ResetButtons", TakeDamage);
         originalPosition = originalObject.transform.position;
         originalObject.SetActive(true);
@@ -26,7 +29,7 @@ public class MentorMistakeHandler : MonoBehaviour
 
     void Update()
     {
-        if (!isDamaged)
+        if (!isDamaged && playerMovement.endOfLevel == false)
         {
             HoverObject();
         }
