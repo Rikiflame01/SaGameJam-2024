@@ -45,6 +45,8 @@ public class SoundManager : MonoBehaviour
     {
         backgroundMusicSource.volume = backgroundMusicVolume;
         sfxSource.volume = sfxVolume;
+
+        PlayBackgroundMusic(backgroundMusicSource.clip);
     }
 
 
