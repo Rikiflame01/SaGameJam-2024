@@ -6,10 +6,11 @@ public class TrailPainter3D : MonoBehaviour
     public Renderer floorRenderer;
     public int textureWidth = 512;
     public int textureHeight = 512;
-    public int brushSize = 5; 
+    public int brushSize = 5;
     public Color brushColor = Color.red;
 
     private Texture2D drawTexture;
+    private Texture2D originalTexture;
     private Vector2 uvPos;
 
     void Start()
@@ -20,13 +21,17 @@ public class TrailPainter3D : MonoBehaviour
         {
             for (int y = 0; y < drawTexture.height; y++)
             {
-                drawTexture.SetPixel(x, y, Color.white);
+                drawTexture.SetPixel(x, y, new Color(0, 0, 0, 0));
             }
         }
         drawTexture.Apply();
 
-        floorRenderer.material.mainTexture = drawTexture;
+        originalTexture = (Texture2D)floorRenderer.material.mainTexture;
+
+        floorRenderer.material.SetTexture("_MainTex", originalTexture);
+        floorRenderer.material.SetTexture("_DrawTex", drawTexture);
     }
+
 
     void Update()
     {

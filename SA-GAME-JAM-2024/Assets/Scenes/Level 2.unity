@@ -272,10 +272,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   splinePath: {fileID: 500623166}
-  maxDistanceFromSpline: 0.5
+  maxDistanceFromSpline: 0.35
   distanceToReachEnd: 1
   splineResolution: 100
-  sceneToLoad: GameScene
+  sceneToLoad: Level 2
 --- !u!1 &235780075
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,6 +519,90 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &385706514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 385706516}
+  - component: {fileID: 385706515}
+  m_Layer: 2
+  m_Name: sigils_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &385706515
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385706514}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 217262504, guid: 68bb431faa451d74b9e03bd34de84a1d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3764706}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 13.630001, y: 13.631288}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &385706516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385706514}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.19229522, y: 0.14, z: 0.27}
+  m_LocalScale: {x: 0.55473465, y: 0.55473465, z: 0.55473465}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,43 +767,143 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: -0.02028897
+        x: -0.90028894
         y: 0
-        z: -9.152075
+        z: -6.692075
       TangentIn:
         x: -0
         y: -0
-        z: -0.78800005
+        z: -0.3253742
       TangentOut:
         x: 0
         y: 0
-        z: 0.78800005
+        z: 0.3253742
       Rotation:
         value:
           x: 0
-          y: 0
+          y: 0.43169564
           z: 0
-          w: 1
+          w: 0.9020193
     - Position:
-        x: -0.02028897
+        x: 1.633711
         y: 0
-        z: -1.2720749
+        z: -4.651075
       TangentIn:
-        x: -0
-        y: -0
-        z: -0.78800005
+        x: 0
+        y: 0
+        z: 0
       TangentOut:
         x: 0
         y: 0
-        z: 0.78800005
+        z: 0
       Rotation:
         value:
           x: 0
-          y: 0
-          z: 0
-          w: 1
+          y: -0.22586854
+          z: -0
+          w: 0.9741578
+    - Position:
+        x: -2.2712889
+        y: 0
+        z: -2.9870749
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0
+          y: -0.51480705
+          z: -0
+          w: 0.857306
+    - Position:
+        x: 3.112711
+        y: 0.008000016
+        z: -1.5650749
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: 0.0048402282
+          y: 0.91824305
+          z: -0.018245472
+          w: 0.39556712
+    - Position:
+        x: 1.519711
+        y: -0.28
+        z: -7.792075
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: -0.0019174916
+          y: 0.90313685
+          z: -0.012560068
+          w: -0.4291648
+    - Position:
+        x: -1.733289
+        y: -0.29
+        z: -7.809075
+      TangentIn:
+        x: 0
+        y: 0
+        z: 0
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: -0.0000000010638876
+          y: -0.44940633
+          z: -5.3521004e-10
+          w: 0.8933274
+    - Position:
+        x: -3.580289
+        y: -0.29
+        z: -1.5720749
+      TangentIn:
+        x: -0
+        y: -0
+        z: -0.65047354
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.65047354
+      Rotation:
+        value:
+          x: 4.4279805e-19
+          y: -0.14345734
+          z: -3.0546918e-18
+          w: 0.98965645
     m_MetaData:
     - Mode: 0
+      Tension: 0.5
+    - Mode: 1
+      Tension: 0.5
+    - Mode: 1
+      Tension: 0.5
+    - Mode: 1
+      Tension: 0.5
+    - Mode: 1
+      Tension: 0.5
+    - Mode: 1
       Tension: 0.5
     - Mode: 0
       Tension: 0.5
@@ -1526,7 +1710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d50434cf24d7174bac335f50d8fbd1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerDuration: 10
+  timerDuration: 30
   timerText: {fileID: 1041226808}
 --- !u!4 &1902465776
 Transform:
@@ -1766,3 +1950,4 @@ SceneRoots:
   - {fileID: 500623167}
   - {fileID: 1902465776}
   - {fileID: 1267608125}
+  - {fileID: 385706516}

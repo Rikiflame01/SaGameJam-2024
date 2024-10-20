@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 startPosition = splinePath.EvaluatePosition(0f);
         rb.position = startPosition;
-        Debug.Log("Player teleported to start: " + startPosition);
+        EventsManager.TriggerEvent("ResetButtons");
     }
 
     void LoadNextScene()

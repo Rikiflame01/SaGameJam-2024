@@ -26,6 +26,16 @@ public class ButtonPressIndicator : MonoBehaviour
         { ColorState.Yellow, new List<KeyCode> { KeyCode.I, KeyCode.K, KeyCode.L } }
     };
 
+    private void OnEnable()
+    {
+        EventsManager.StartListening("ResetButtons", HandleReset);
+    }
+
+    private void OnDisable()
+    {
+        EventsManager.StopListening("ResetButtons", HandleReset);
+    }
+
     private void Awake()
     {
         canvasGroup = GetComponentInChildren<CanvasGroup>();
@@ -50,16 +60,12 @@ public class ButtonPressIndicator : MonoBehaviour
             ResetPlayer();
             canvasGroup.alpha = 0;
             isInTriggerZone = false;
+            buttonPressed = false;
         }
     }
 
     private void Update()
     {
-        if (!isInTriggerZone && !buttonPressed)
-        {
-            CheckForWrongKeyPress();
-        }
-
         if (isInTriggerZone && !buttonPressed)
         {
             if (Input.GetKeyDown(correctKeys[currentColor]))
@@ -82,6 +88,7 @@ public class ButtonPressIndicator : MonoBehaviour
             {
                 buttonPressed = true;
                 Debug.Log("Wrong key pressed!");
+                isInTriggerZone = false;
                 ResetPlayer();
                 break;
             }
@@ -96,8 +103,13 @@ public class ButtonPressIndicator : MonoBehaviour
 
     private void HandleButtonPress()
     {
-        this.gameObject.SetActive(false);
-        this.enabled = false;
+        canvasGroup.alpha = 0;
+    }
 
+    void HandleReset()
+    {
+        canvasGroup.alpha = 0;
+        buttonPressed = false;
+        isInTriggerZone = false;
     }
 }

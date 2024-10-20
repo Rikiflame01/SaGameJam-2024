@@ -10,8 +10,15 @@ public class TimerLoop : MonoBehaviour
 
     private void Start()
     {
+        EventsManager.StartListening("ResetButtons", ResetTimer);
         ResetTimer();
     }
+
+    private void OnDisable()
+    {
+        EventsManager.StopListening("ResetButtons", ResetTimer);
+    }
+
 
     private void Update()
     {

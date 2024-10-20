@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEditor.SceneManagement;
 
 [InitializeOnLoad]
 public class SceneSwitcherOverlay
@@ -39,7 +40,7 @@ public class SceneSwitcherOverlay
     {
         if (sceneIndex >= 0 && sceneIndex < SceneManager.sceneCountInBuildSettings)
         {
-            SceneManager.LoadScene(sceneIndex);
+            EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(sceneIndex));
             Debug.Log("Scene loaded: " + SceneUtility.GetScenePathByBuildIndex(sceneIndex));
         }
         else
