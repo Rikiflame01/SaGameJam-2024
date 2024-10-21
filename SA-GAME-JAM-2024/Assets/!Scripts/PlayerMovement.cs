@@ -103,10 +103,23 @@ public class PlayerMovement : MonoBehaviour
         Vector3 startPosition = splinePath.EvaluatePosition(0f);
         rb.position = startPosition;
         EventsManager.TriggerEvent("ResetButtons");
+
+        Scene sceneName = SceneManager.GetActiveScene();
+        if (sceneName.name == "Level 2" || sceneName.name == "Level 4" || sceneName.name == "Level 6" || sceneName.name == "Level 8")
+        {
+            SceneManager.LoadScene("Title Screen");
+            return;
+        }
+        if (sceneName.name == "Level 10")
+        {
+            SceneManager.LoadScene("Title Screen");
+            return;
+        }
     }
 
     void LoadNextScene()
     {
+
         EventsManager.TriggerEvent("EnableLevelButtons");
         Debug.Log("Loading next scene...");
         rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -115,6 +128,51 @@ public class PlayerMovement : MonoBehaviour
         {
             SoundManager.instance.StopAllLoopingEffects();
             SoundManager.instance.PlaySFX("mtlpp");
+        }
+        if (currentScene.name == "Level 2")
+        {
+            SoundManager.instance.StopAllLoopingEffects();
+            SoundManager.instance.PlaySFX("mtlpp");
+        }
+        if (currentScene.name == "Level 3")
+        {
+            SoundManager.instance.StopAllLoopingEffects();
+            SoundManager.instance.PlaySFX("mlg1old");
+        }
+        if (currentScene.name == "Level 4")
+        {
+            SoundManager.instance.StopAllLoopingEffects();
+            SoundManager.instance.PlaySFX("mlg1old");
+        }
+        if (currentScene.name == "Level 5")
+        {
+            SoundManager.instance.StopAllLoopingEffects();
+            SoundManager.instance.PlaySFX("glockFire2");
+        }
+        if (currentScene.name == "Level 6")
+        {
+            SoundManager.instance.StopAllLoopingEffects();
+            SoundManager.instance.PlaySFX("glockFire2");
+        }
+        if (currentScene.name == "Level 7")
+        {
+            SoundManager.instance.StopAllLoopingEffects();
+            SoundManager.instance.PlaySFX("TortionConsol");
+        }
+        if (currentScene.name == "Level 8")
+        {
+            SoundManager.instance.StopAllLoopingEffects();
+            SoundManager.instance.PlaySFX("TortionConsol");
+        }
+        if (currentScene.name == "Level 9")
+        {
+            SoundManager.instance.StopAllLoopingEffects();
+            SoundManager.instance.PlaySFX("LegalNukes");
+        }
+        if (currentScene.name == "Level 10")
+        {
+            SoundManager.instance.StopAllLoopingEffects();
+            SoundManager.instance.PlaySFX("LegalNukes");
         }
     }
 

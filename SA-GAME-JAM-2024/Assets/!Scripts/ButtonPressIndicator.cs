@@ -72,6 +72,7 @@ public class ButtonPressIndicator : MonoBehaviour
             {
                 buttonPressed = true;
                 HandleButtonPress();
+                SoundManager.instance.PlaySFX("correct1");
             }
             else
             {
@@ -90,6 +91,7 @@ public class ButtonPressIndicator : MonoBehaviour
                 Debug.Log("Wrong key pressed!");
                 isInTriggerZone = false;
                 ResetPlayer();
+                SoundManager.instance.PlaySFX("WrongButton");
                 break;
             }
         }
@@ -97,6 +99,7 @@ public class ButtonPressIndicator : MonoBehaviour
 
     private void ResetPlayer()
     {
+        SoundManager.instance.PlaySFX("WrongButton");
         EventsManager.TriggerEvent("ResetPlayer");
         buttonPressed = false;
     }
@@ -108,6 +111,7 @@ public class ButtonPressIndicator : MonoBehaviour
 
     void HandleReset()
     {
+        SoundManager.instance.PlaySFX("WrongButton");
         canvasGroup.alpha = 0;
         buttonPressed = false;
         isInTriggerZone = false;

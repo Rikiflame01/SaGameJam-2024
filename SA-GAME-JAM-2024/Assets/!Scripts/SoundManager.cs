@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -47,6 +48,8 @@ public class SoundManager : MonoBehaviour
                 sfxDictionary.Add(clip.name, clip);
             }
         }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
@@ -55,7 +58,27 @@ public class SoundManager : MonoBehaviour
         sfxSource.volume = sfxVolume;
         loopingSfxSource.volume = sfxVolume;
 
-        PlayBackgroundMusic(backgroundMusicTracks[currentMusicIndex]);
+        UpdateBackgroundMusic(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UpdateBackgroundMusic(scene.name);
+    }
+
+    private void UpdateBackgroundMusic(string sceneName)
+    {
+        if (sceneName == "Title Screen" || sceneName == "Level 1" || sceneName == "Level 3" || sceneName == "Level 5"
+            || sceneName == "Level 7" || sceneName == "Level 9")
+        {
+            currentMusicIndex = 0;
+            PlayBackgroundMusic(backgroundMusicTracks[currentMusicIndex]);
+        }
+        else
+        {
+            currentMusicIndex = 1;
+            PlayBackgroundMusic(backgroundMusicTracks[currentMusicIndex]);
+        }
     }
 
     public void PlayBackgroundMusic(AudioClip musicClip)
@@ -107,5 +130,10 @@ public class SoundManager : MonoBehaviour
         {
             loopingSfxSource.Stop();
         }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
